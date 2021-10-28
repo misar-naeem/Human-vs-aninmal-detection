@@ -1,10 +1,8 @@
-### https://au.mathworks.com/help/vision/ug/face-detection-and-tracking-using-the-klt-algorithm.html
-
 % Create a cascade detector object.
 faceDetector = vision.CascadeObjectDetector();
 
 % Read a video frame and run the face detector.
-videoReader = VideoReader('tilted_face.avi');
+videoReader = VideoReader('chris.mp4');
 videoFrame      = readFrame(videoReader);
 bbox            = step(faceDetector, videoFrame);
 
@@ -22,6 +20,7 @@ points = detectMinEigenFeatures(rgb2gray(videoFrame), 'ROI', bbox);
 figure, imshow(videoFrame), hold on, title('Detected features');
 plot(points);
 
+
 pointTracker = vision.PointTracker('MaxBidirectionalError', 2);
 
 % Initialize the tracker with the initial point locations and the initial
@@ -29,10 +28,12 @@ pointTracker = vision.PointTracker('MaxBidirectionalError', 2);
 points = points.Location;
 initialize(pointTracker, points, videoFrame);
 
+
 videoPlayer  = vision.VideoPlayer('Position',...
     [100 100 [size(videoFrame, 2), size(videoFrame, 1)]+30]);
 
-  oldPoints = points;
+
+oldPoints = points;
 
 while hasFrame(videoReader)
     % get the next frame
@@ -74,6 +75,8 @@ while hasFrame(videoReader)
 end
 
 % Clean up
-release(videoPlayer);  
+release(videoPlayer);
+
+
 
 release(pointTracker);
