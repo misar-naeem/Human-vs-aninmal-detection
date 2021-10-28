@@ -389,3 +389,9 @@ function h_img = vis(img,faceDet,trackers,frameID,h_img)
     set(h_img,'cdata',img);
     drawnow  
 end
+
+
+
+
+
+
